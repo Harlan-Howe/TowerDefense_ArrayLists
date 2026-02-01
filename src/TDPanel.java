@@ -83,7 +83,7 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
     {
         if ((TDFrame.STATUS_PLACING== status) && (null != currentTurret ))
         {
-            currentTurret.setMyLoc(e.getX(), e.getY());
+            currentTurret.setMyLoc(20+(e.getX()/40)*40, 20+(e.getY()/40)*40);
             repaint();
         }
     }
