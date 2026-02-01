@@ -1,11 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class TDPanel extends JPanel
+public class TDPanel extends JPanel implements MouseListener, MouseMotionListener
 {
     private final World myWorld;
     private final TDFrame myParent;
     private final AnimationThread myThread;
+    private int status;
+    private Turret currentTurret;
 
     public TDPanel(TDFrame parent)
     {
@@ -14,7 +19,16 @@ public class TDPanel extends JPanel
         setBackground(Color.LIGHT_GRAY);
         myWorld = new World();
         myThread = new AnimationThread();
-        myThread.start();
+        status = TDFrame.STATUS_WAITING;
+        addMouseListener(this);
+        addMouseMotionListener(this);
+    }
+
+    public void placeTurret(int turretType)
+    {
+        currentTurret = new Turret(turretType, myWorld);
+        status = TDFrame.STATUS_PLACING;
+        requestFocus();
     }
 
     public void paintComponent(Graphics g)
@@ -24,6 +38,54 @@ public class TDPanel extends JPanel
         myWorld.drawShots(g);
         myWorld.drawInvaders(g);
         myWorld.drawTurrets(g);
+        if (TDFrame.STATUS_PLACING == status)
+            currentTurret.drawSelf(g);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e)
+    {
+        if ((TDFrame.STATUS_PLACING== status) && (null != currentTurret ))
+        {
+            currentTurret.setMyLoc(e.getX(), e.getY());
+            repaint();
+        }
     }
 
 
