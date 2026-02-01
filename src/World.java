@@ -15,9 +15,9 @@ public class World
         invaderList.get(0).advance(4.3);
 
         turretList = new ArrayList<Turret>();
-        turretList.add(new Turret(50, 2, 20, 0, this));
+        turretList.add(new Turret(50, 2, 20, 2, this));
         turretList.get(0).setMyLoc(140,220);
-        turretList.add(new Turret(50, 2, 20, 1, this));
+        turretList.add(new Turret(50, 200, 20, 1, this));
         turretList.get(1).setMyLoc(140,180);
     }
 

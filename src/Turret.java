@@ -20,7 +20,7 @@ public class Turret
         this.myDamage = damage;
         this.myType = type;
         this.myWorld = myWorld;
-        myTimeSinceLastFire = 999;
+        myTimeSinceLastFire = 99;
         myLoc = new int[2];
         myLoc[0] = -100;
         myLoc[1] = -100;
@@ -70,6 +70,23 @@ public class Turret
                 for (int i=0; i<3; i++)
                     g.drawLine(x_vals[i], y_vals[i], x_vals[i+3], y_vals[i+3]);
         }
+        drawRecharge(g);
+    }
 
+    private void drawRecharge(Graphics g)
+    {
+        ((Graphics2D) g).setStroke(thickLine);
+        if (myTimeSinceLastFire >= myPeriod)
+        {
+            g.setColor(Color.RED);
+            g.drawOval(myLoc[0]-7, myLoc[1]-7, 14, 14);
+        }
+        else
+        {
+            int angle = (int)( 360 * myTimeSinceLastFire/myPeriod);
+            g.setColor(new Color(255, 255-255*angle/540, 0));
+            g.drawArc(myLoc[0]-7, myLoc[1]-7, 14, 14, 0, angle);
+        }
+        ((Graphics2D) g).setStroke(thinLine);
     }
 }
