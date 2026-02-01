@@ -18,7 +18,7 @@ public class TDFrame extends JFrame implements ActionListener
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
-        mainPanel = new TDPanel();
+        mainPanel = new TDPanel(this);
         getContentPane().add(mainPanel, BorderLayout.CENTER);
         buildTopPane();
     }
@@ -32,6 +32,7 @@ public class TDFrame extends JFrame implements ActionListener
         for (int i=0; i<NUM_TURRET_TYPES; i++)
         {
             turretButtons[i] = buildTurretButton(i);
+            turretButtons[i].setToolTipText("Range: "+Turret.RANGES[i]+" Recharge: "+Turret.RECHARGE_TIMES[i]+" Damage: "+Turret.DAMAGES[i]);
             turretButtons[i].addActionListener(this);
             topPanel.add(turretButtons[i]);
             if (i < NUM_TURRET_TYPES -1)
@@ -51,6 +52,7 @@ public class TDFrame extends JFrame implements ActionListener
         localGraphics.setColor(Color.LIGHT_GRAY);
         localGraphics.fillRect(0,0,40,40);
         temp.drawSelf(localGraphics);
+
         return new JButton(new ImageIcon(bi));
     }
 
