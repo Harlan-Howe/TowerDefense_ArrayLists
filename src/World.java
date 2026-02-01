@@ -7,6 +7,7 @@ public class World
         {100, 180}, {100, 140}, {140, 140}, {180, 140}, {220, 140}, {260, 140}, {260, 180}, {260, 220}};
     private ArrayList<Invader> invaderList;
     private ArrayList<Turret> turretList;
+    private ArrayList<Shot> shotList;
 
     public World()
     {
@@ -18,6 +19,8 @@ public class World
         turretList.get(0).setMyLoc(140,220);
         turretList.add(new Turret(75, 8, 50, 1, this));
         turretList.get(1).setMyLoc(140,180);
+
+        shotList = new ArrayList<Shot>();
     }
 
 
@@ -36,6 +39,13 @@ public class World
     {
         for (Invader inv: invaderList)
             inv.drawSelf(g);
+    }
+
+    public void drawShots(Graphics g)
+    {
+        for (Shot s:shotList)
+            s.drawSelf((Graphics2D)g);
+        shotList.clear();
     }
 
     public void drawTurrets(Graphics g)
@@ -76,5 +86,10 @@ public class World
             if (inv.isDead())
                 invaderList.remove(inv);
         }
+    }
+
+    public void addShot(int[] turretLoc, double[] invLoc, Color col)
+    {
+        shotList.add(new Shot(turretLoc, invLoc, col));
     }
 }

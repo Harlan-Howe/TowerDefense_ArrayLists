@@ -19,6 +19,7 @@ public class TDPanel extends JPanel
     {
         super.paintComponent(g);
         myWorld.drawPath(g);
+        myWorld.drawShots(g);
         myWorld.drawInvaders(g);
         myWorld.drawTurrets(g);
     }

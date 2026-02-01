@@ -15,6 +15,7 @@ public class Turret
     private static Stroke thinLine;
     private static Stroke thickLine;
     private static Stroke gunLine;
+    private static Color[] shotColors = {Color.GREEN, Color.BLUE, Color.PINK};
 
     public Turret(int range, double period, int damage, int type, World myWorld)
     {
@@ -135,7 +136,7 @@ public class Turret
             if ((nearestDist2 < Math.pow(myRange,2)) && (myTimeSinceLastFire >= myRechargeTime))
             {
                 System.out.println("Fire");
-//                myWorld.addShot(myLoc, invLoc);
+                myWorld.addShot(myLoc, invLoc, shotColors[myType]);
                 myWorld.damageInvader(nearestInv, myDamage);
                 myTimeSinceLastFire = 0;
             }
