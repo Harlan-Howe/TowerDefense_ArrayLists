@@ -11,8 +11,7 @@ public class World
     public World()
     {
         invaderList = new ArrayList<Invader>();
-        invaderList.add(new Invader(1, 100, 1, this));
-        invaderList.get(0).advance(4.3);
+        invaderList.add(new Invader(1.0, 100, 1, this));
 
         turretList = new ArrayList<Turret>();
         turretList.add(new Turret(50, 2, 20, 2, this));
@@ -47,4 +46,18 @@ public class World
 
 
     public int[][] getPath() { return path;}
+
+    public void updateAllObjects(int deltaTimeInMS)
+    {
+        double deltaT = deltaTimeInMS/1000.0;
+        boolean anyInvaderReachedEnd = false;
+        for (Invader inv: invaderList)
+            anyInvaderReachedEnd |= inv.advance(deltaT);
+        if (anyInvaderReachedEnd)
+        {
+            System.out.println("Game over!");
+            System.exit(0);
+        }
+    }
+
 }

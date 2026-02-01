@@ -22,13 +22,23 @@ public class Invader
         double[] loc = new double[2];
         int latestBase = (int)myProgress;
         double frac = myProgress - latestBase;
-        int prevX = myWorld.getPath()[latestBase][0];
-        int nextX = myWorld.getPath()[latestBase+1][0];
-        int prevY = myWorld.getPath()[latestBase][1];
-        int nextY = myWorld.getPath()[latestBase+1][1];
 
-        loc[0] = prevX + frac * (nextX-prevX);
-        loc[1] = prevY + frac * (nextY-prevY);
+
+        if (latestBase < myWorld.getPath().length-1)
+        {
+            loc[0] = myWorld.getPath()[latestBase][0];
+            loc[1] = myWorld.getPath()[latestBase][1];
+            int nextX = myWorld.getPath()[latestBase+1][0];
+            int nextY = myWorld.getPath()[latestBase+1][1];
+
+            loc[0] += frac * (nextX-loc[0]);
+            loc[1] += frac * (nextY-loc[1]);
+        }
+        else
+        {
+            loc[0] = myWorld.getPath()[latestBase][0];
+            loc[1] = myWorld.getPath()[latestBase][1];
+        }
         return loc;
     }
 
@@ -50,8 +60,9 @@ public class Invader
         g.fillRect((int)(loc[0]-16), (int)(loc[1]-18), myHealth*32/100, 2);
     }
 
-    public void advance(double deltaT)
+    public boolean advance(double deltaT)
     {
         myProgress += deltaT * mySpeed;
+        return myProgress >= myWorld.getPath().length;
     }
 }
