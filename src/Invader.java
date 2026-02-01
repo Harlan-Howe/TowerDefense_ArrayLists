@@ -1,0 +1,55 @@
+import java.awt.*;
+
+public class Invader
+{
+    private double mySpeed;
+    private int myHealth;
+    private int myType;
+    private World myWorld;
+    private double myProgress;
+
+    public Invader(double mySpeed, int myHealth, int myType, World myWorld)
+    {
+        this.mySpeed = mySpeed;
+        this.myHealth = myHealth;
+        this.myType = myType;
+        this.myWorld = myWorld;
+        myProgress = 0.0;
+    }
+
+    public double[] getLoc()
+    {
+        double[] loc = new double[2];
+        int latestBase = (int)myProgress;
+        double frac = myProgress - latestBase;
+        int prevX = myWorld.getPath()[latestBase][0];
+        int nextX = myWorld.getPath()[latestBase+1][0];
+        int prevY = myWorld.getPath()[latestBase][1];
+        int nextY = myWorld.getPath()[latestBase+1][1];
+
+        loc[0] = prevX + frac * (nextX-prevX);
+        loc[1] = prevY + frac * (nextY-prevY);
+        return loc;
+    }
+
+    public void drawSelf(Graphics g)
+    {
+        double[] loc = getLoc();
+        switch (myType)
+        {
+            case 0:
+                g.setColor(Color.GREEN);
+                g.fillRect((int)(loc[0]-16), (int)(loc[1]-16), 32, 32);
+                break;
+            case 1:
+                g.setColor(Color.YELLOW);
+                g.fillOval((int)(loc[0]-16), (int)(loc[1]-16), 32, 32);
+                break;
+        }
+    }
+
+    public void advance(double deltaT)
+    {
+        myProgress += deltaT * mySpeed;
+    }
+}
