@@ -16,7 +16,7 @@ public class World
         turretList = new ArrayList<Turret>();
         turretList.add(new Turret(50, 2, 20, 2, this));
         turretList.get(0).setMyLoc(140,220);
-        turretList.add(new Turret(50, 200, 20, 1, this));
+        turretList.add(new Turret(50, 10, 20, 1, this));
         turretList.get(1).setMyLoc(140,180);
     }
 
@@ -47,6 +47,8 @@ public class World
 
     public int[][] getPath() { return path;}
 
+    public ArrayList<Invader> getInvaderList() {return invaderList;}
+
     public void updateAllObjects(int deltaTimeInMS)
     {
         double deltaT = deltaTimeInMS/1000.0;
@@ -57,6 +59,11 @@ public class World
         {
             System.out.println("Game over!");
             System.exit(0);
+        }
+
+        for (Turret t: turretList)
+        {
+            t.advance(deltaT);
         }
     }
 

@@ -22,7 +22,7 @@ public class Turret
         this.myDamage = damage;
         this.myType = type;
         this.myWorld = myWorld;
-        myTimeSinceLastFire = 999;
+        myTimeSinceLastFire = 0;
         myLoc = new int[2];
         myLoc[0] = -100;
         myLoc[1] = -100;
@@ -90,7 +90,7 @@ public class Turret
         else
         {
             int angle = (int)( 360 * myTimeSinceLastFire/myPeriod);
-            g.setColor(new Color(255, 255-255*angle/540, 0));
+            g.setColor(new Color(255, 255-255*angle/720, 0));
             g.drawArc(myLoc[0]-7, myLoc[1]-7, 14, 14, 0, angle);
         }
         g.setStroke(thinLine);
@@ -102,5 +102,10 @@ public class Turret
         g.setStroke(gunLine);
         g.drawLine(myLoc[0],myLoc[1],(int)(myLoc[0]+20*Math.cos(myGunAngle)), (int)(myLoc[1]+20*Math.sin(myGunAngle)));
         g.setStroke(thinLine);
+    }
+
+    public void advance(double deltaT)
+    {
+        myTimeSinceLastFire += deltaT;
     }
 }
