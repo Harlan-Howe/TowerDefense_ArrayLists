@@ -54,7 +54,7 @@ public class World
         throw new RuntimeException("randomizing spawn didn't work.");
     }
 
-    private int getRemainingInvadersToSpawn()
+    public int getRemainingInvadersToSpawn()
     {
         int remainingInvaders = 0;
         for (int count: spawnList)
