@@ -41,6 +41,8 @@ public class Turret
             gunLine = new BasicStroke(4);
     }
 
+    public int[] getMyLoc() {return myLoc;}
+
     public void setMyLoc(int[] myLoc)
     {
         this.myLoc = myLoc;

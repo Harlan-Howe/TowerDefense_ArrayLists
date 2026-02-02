@@ -92,4 +92,19 @@ public class World
     {
         shotList.add(new Shot(turretLoc, invLoc, col));
     }
+
+    public void addTurret(Turret newTurret, int x, int y)
+    {
+        for (int i=turretList.size()-1; i>=0; i-- )
+        {
+            int[] loc = turretList.get(i).getMyLoc();
+            if (x==loc[0] && y==loc[1])
+            {
+                turretList.remove(i);
+            }
+        }
+
+        turretList.add(newTurret);
+        newTurret.setMyLoc(x, y);
+    }
 }

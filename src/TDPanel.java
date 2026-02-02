@@ -57,7 +57,24 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
     @Override
     public void mouseReleased(MouseEvent e)
     {
-
+        if ((TDFrame.STATUS_PLACING == status) && (null != currentTurret))
+        {
+            int destX = 20+(e.getX()/40)*40;
+            int destY = 20+(e.getY()/40)*40;
+            int[][] path = myWorld.getPath();
+            for (int[] trackLoc: path)
+            {
+                if (destX == trackLoc[0] && destY == trackLoc[1])
+                {
+                    myParent.overrideStatusMessage("You cannot place the turret on the path.");
+                    return;
+                }
+            }
+            myWorld.addTurret(currentTurret, destX, destY);
+            status = TDFrame.STATUS_WAITING;
+            myParent.setStatus(TDFrame.STATUS_WAITING);
+            repaint();
+        }
     }
 
     @Override
